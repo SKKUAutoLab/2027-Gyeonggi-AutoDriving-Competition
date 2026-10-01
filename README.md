@@ -47,5 +47,4 @@ sudo killall -9 gazebo gzserver gzclient; ros2 launch simulation_pkg driving_sim
 
 
 ## 5. 과제 제출
-시뮬레이션을 실행해서 차량이 한바퀴 주행하는 영상 촬영
-eX-campus 과제 및 평가 탭에서 [온라인 과제 제출] 항목에 제출해주세요.
+시뮬레이션을 실행해서 차량이 한바퀴 주행하는 영상 촬영해서 eX-campus 과제 및 평가 탭에서 [온라인 과제 제출] 항목에 제출해주세요.
