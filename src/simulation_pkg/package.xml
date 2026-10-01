@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>simulation_pkg</name>
+  <version>1.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="012vision@gmail.com">Jinsun-Lee</maintainer>
+  <license>GNU-GPL</license>
+
+  <depend>interfaces_pkg</depend>
+  <depend>camera_perception_pkg</depend>
+  <depend>decision_making_pkg</depend>
+  <depend>debug_pkg</depend>
+
+  <depend>rclpy</depend>
+  <depend>cv_bridge</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_pkgs</depend>
+  <depend>gazebo_ros2_control</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>image_transport</depend>
+  <depend>nav_msgs</depend>       
+  <depend>eigen</depend>     
+  <depend>rclcpp</depend>
+  <depend>gazebo_dev</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>geometry_msgs</depend>
+  <depend>ackermann_msgs</depend>
+
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>  
+
+  <export>
+    <build_type>ament_python</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/models" plugin_path="${prefix}/plugins"/>
+  </export>
+</package>

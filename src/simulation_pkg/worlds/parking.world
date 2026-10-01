@@ -1,0 +1,208 @@
+<sdf version='1.7'>
+  <world name='default'>
+
+    <gui fullscreen='0'> 
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'/>
+      <camera name='user_camera'> 
+        <pose>0 0 32.8879 3.14159 1.57079 3.14159</pose>       <!-- 초기 시점 -->
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>0</shadows>
+    </scene>
+
+    <model name='top_camera'> 
+      <link name='top_camera_link'> 
+        <inertial>
+          <mass>1</mass> 
+          <inertia> 
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose>0 0 0 0 0 1.57</pose> <!-- 카메라 박스 위치 조정 -->
+        </inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <gravity>1</gravity> 
+        <self_collide>0</self_collide> 
+        <kinematic>0</kinematic> 
+        <enable_wind>0</enable_wind> 
+        <visual name='visual'> 
+          <pose>0 0 0 0 0 1.57</pose> <!-- 카메라 박스 위치 조정 -->
+          <geometry>
+            <box> 
+              <size>0.8 0.2 0.2</size> 
+            </box>
+          </geometry>
+          <material> 
+            <lighting>1</lighting> 
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+            <shader type='pixel'> 
+              <normal_map>__default__</normal_map> 
+            </shader>
+            <ambient>0.3 0.3 0.3 1</ambient> 
+            <diffuse>0.7 0.7 0.7 1</diffuse> 
+            <specular>0.01 0.01 0.01 1</specular> 
+            <emissive>0 0 0 1</emissive>
+          </material>
+          <transparency>0</transparency> 
+          <cast_shadows>0</cast_shadows> 
+        </visual>
+        <collision name='collision'> 
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose>0 0 0 0 0 1.57</pose> <!-- 카메라 박스 위치 조정 -->
+          <geometry>
+            <box>
+              <size>0.8 0.2 0.2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction> 
+              <ode>
+                <mu>1</mu> 
+                <mu2>1</mu2> 
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce> 
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact> 
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm> 
+                <soft_erp>0.2</soft_erp> 
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+
+        <sensor name='top_camera' type='camera'> 
+          <pose>0 0 0 0 0 0</pose>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+          <camera name='head'>
+            <horizontal_fov>1.0856</horizontal_fov> 
+            <image> 
+              <!--<width>1280</width> -->
+              <!--<height>720</height>-->
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format> 
+            </image>
+            <clip>
+              <near>0.03</near> <!-- 근거리 절단면 설정 -->
+              <far>200</far> <!-- 원거리 절단면 설정 -->
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name='top_camera_driver' filename='libgazebo_ros_camera.so'> 
+            <alwaysOn>1</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>top_camera</cameraName>
+            <imageTopicName>image_raw</imageTopicName> 
+            <cameraInfoTopicName>top_camera_info</cameraInfoTopicName> 
+            <frameName>camera_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+          </plugin>
+        </sensor>
+      </link>
+      <static>1</static>
+      <allow_auto_disable>1</allow_auto_disable>
+      <pose>0 0 40.619400 0 1.57 0</pose> <!-- 카메라의 위치 조정 -->
+    </model>
+    
+    <model name='ground'>
+      <pose>0 0 0 0 0 4.71239</pose> <!-- 트랙 위치 조정 -->
+      <static>1</static>
+
+      <link name="ground">
+        <collision name="ground_collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>86.7 56.7018</size>
+            </plane>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+
+        <visual name="ground_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>86.7 56.7018</size>
+            </plane>
+          </geometry>
+
+          <material>
+            <script>
+              <uri>model://race_track/materials/scripts</uri>
+              <uri>model://race_track/materials/textures</uri>
+              <name>track</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+  </world>
+</sdf>

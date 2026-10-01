@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+
+  <model name="race_track">
+    <pose>0 0 5 0 0 -0.000614</pose>
+    <static>true</static>
+
+    <link name="ground">
+      <collision name="ground_collision">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>51 33.354</size>
+          </plane>
+        </geometry>
+      </collision>
+      
+      <visual name="ground_visual">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>51 33.354</size>
+          </plane>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://race_track/materials/scripts</uri>
+            <uri>model://race_track/materials/textures</uri>
+            <name>track</name>
+          </script>
+        </material>
+      </visual>
+      
+    </link>
+  </model>
+
+</sdf>

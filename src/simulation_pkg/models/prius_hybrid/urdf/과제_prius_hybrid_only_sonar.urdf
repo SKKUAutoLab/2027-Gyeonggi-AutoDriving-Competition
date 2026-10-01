@@ -1,0 +1,859 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="prius_hybrid">
+
+  <gazebo reference="front_left_wheel">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <minDepth>0.005</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+  <gazebo reference="front_right_wheel">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <minDepth>0.005</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+  <gazebo reference="rear_left_wheel">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <minDepth>0.005</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+  <gazebo reference="rear_right_wheel">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <minDepth>0.005</minDepth>
+    <kp>1e8</kp>
+  </gazebo>
+
+  <link name="base_link">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="base_link_connection" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="1.45 0 0" rpy="0 0 1.57"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="chassis">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://prius_description/meshes/hybrid_body.obj" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+
+    <collision name="chassis">
+      <origin xyz="0.0 0.05 0.625" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.7526 2.1 0.95"/>
+      </geometry>
+    </collision>
+
+    <collision name="front_bumper">
+      <origin xyz="0.0 -2.0 0.458488" rpy="0.0 0 0"/>
+      <geometry>
+        <box size="1.337282 0.48 0.566691"/>
+      </geometry>
+    </collision>
+
+    <collision name="hood">
+      <origin xyz="0.0 -1.900842 0.676305" rpy="0.341247 0 0"/>
+      <geometry>
+        <box size="1.597968 0.493107 0.265468"/>
+      </geometry>
+    </collision>
+
+    <collision name="windshield">
+      <origin xyz="0.0 -0.875105 1.032268" rpy="0.335476 0 0"/>
+      <geometry>
+        <box size="1.168381 1.654253 0.272347"/>
+      </geometry>
+    </collision>
+
+    <collision name="top_front">
+      <origin xyz="0.0 0.161236 1.386042" rpy="0.135030 0 0"/>
+      <geometry>
+        <box size="1.279154 0.625988 0.171868"/>
+      </geometry>
+    </collision>
+
+    <collision name="top_rear">
+      <origin xyz="0.0 0.817696 1.360069" rpy="-0.068997 0 0"/>
+      <geometry>
+        <box size="1.285130 0.771189 0.226557"/>
+      </geometry>
+    </collision>
+
+    <collision name="rear_window">
+      <origin xyz="0.0 1.640531 1.175126" rpy="-0.262017 0 0"/>
+      <geometry>
+        <box size="1.267845 1.116344 0.244286"/>
+      </geometry>
+    </collision>
+
+    <collision name="trunk">
+      <origin xyz="0.0 1.637059 0.888180" rpy="0.0 0 0"/>
+      <geometry>
+        <box size="1.788064 1.138988 0.482746"/>
+      </geometry>
+    </collision>
+
+    <collision name="back_bumper">
+      <origin xyz="0.0 2.054454 0.577870" rpy="0.0 0 0"/>
+      <geometry>
+        <box size="1.781650 0.512093 0.581427"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1356.0"/>
+      <origin xyz="0 0 0.48" rpy="0 0 1.5708"/>
+      <inertia ixx="2581.13354740" ixy="0.0" ixz="0.0" iyy="591.30846112" iyz="0.0" izz="2681.95008628"/>
+    </inertial>
+  </link>
+  <link name="fl_axle">
+    <inertial>
+      <mass value="1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.004" ixy="0.0" ixz="0.0" iyy="0.004" iyz="0.0" izz="0.004"/>
+    </inertial>
+  </link>
+  <link name="fr_axle">
+    <inertial>
+      <mass value="1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.004" ixy="0.0" ixz="0.0" iyy="0.004" iyz="0.0" izz="0.004"/>
+    </inertial>
+  </link>
+  <link name="front_left_wheel">
+    <inertial>
+      <mass value="11"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="front_left_wheel_collision">
+      <geometry>
+        <sphere radius="0.31265"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://prius_description/meshes/wheel.obj" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="front_right_wheel">
+    <inertial>
+      <mass value="11"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="front_right_wheel_collision">
+      <geometry>
+        <sphere radius="0.31265"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://prius_description/meshes/wheel.obj" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rear_left_wheel">
+    <inertial>
+      <mass value="11"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="rear_left_wheel_collision">
+      <geometry>
+        <sphere radius="0.31265"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://prius_description/meshes/wheel.obj" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rear_right_wheel">
+    <inertial>
+      <mass value="11"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.58631238" ixy="0.0" ixz="0.0" iyy="0.33552910" iyz="0.0" izz="0.33552910"/>
+    </inertial>
+    <collision name="rear_right_wheel_collision">
+      <geometry>
+        <sphere radius="0.31265"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://prius_description/meshes/wheel.obj" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="steering_wheel">
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="0.14583300" ixy="0.0" ixz="0.0" iyy="0.14583300" iyz="0.0" izz="0.125"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.302101 0 0"/>
+      <geometry>
+        <mesh filename="package://prius_description/meshes/steering_wheel.obj" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="steering_joint" type="continuous">
+    <origin xyz="0.357734 -0.627868 0.988243" rpy="-1.302101 0 0"/>
+    <parent link="chassis"/>
+    <child link="steering_wheel"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-7.85" upper="7.85" effort="10000000" velocity="1000000"/>
+  </joint>
+
+  <joint name="front_left_steer_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="fl_axle"/>
+    <origin xyz="0.767 -1.41 0.3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.8727" upper="0.8727" effort="10000000" velocity="1000000"/>
+  </joint>
+  <joint name="front_right_steer_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="fr_axle"/>
+    <origin xyz="-0.767 -1.41 0.3" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.8727" upper="0.8727" effort="10000000" velocity="1000000"/>
+  </joint>
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="fl_axle"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="fr_axle"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="rear_left_wheel"/>
+    <origin xyz="0.793 1.45 0.3" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="rear_right_wheel"/>
+    <origin xyz="-0.793 1.45 0.3" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <gazebo reference="base_link_connection">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+  <gazebo>
+    <plugin name='pruis_hybrid_drive' filename='libgazebo_ros_ackermann_drive.so'>
+      <chassis>chassis</chassis> 
+
+      <steering_wheel_joint>steering_joint</steering_wheel_joint> 
+      
+      <front_left_joint>front_left_wheel_joint</front_left_joint> 
+      <front_right_joint>front_right_wheel_joint</front_right_joint> 
+
+      <rear_left_joint>rear_left_wheel_joint</rear_left_joint> 
+      <rear_right_joint>rear_right_wheel_joint</rear_right_joint> 
+
+      <left_steering_joint>front_left_steer_joint</left_steering_joint> 
+      <right_steering_joint>front_right_steer_joint</right_steering_joint> 
+
+      <update_rate>100.0</update_rate> 
+      
+      <left_steering_pid_gain>1500 0 1</left_steering_pid_gain> 
+      <left_steering_i_range>0 0</left_steering_i_range>
+      <right_steering_pid_gain>1500 0 1</right_steering_pid_gain>
+      <right_steering_i_range>0 0</right_steering_i_range>
+      <linear_velocity_pid_gain>1000 0 1</linear_velocity_pid_gain>
+      <linear_velocity_i_range>0 0</linear_velocity_i_range>
+
+      <max_steer>0.6458</max_steer> 
+      <max_steering_angle>7.85</max_steering_angle> 
+      <max_speed>20</max_speed>
+
+      <robot_base_frame>chassis</robot_base_frame>
+      <odometry_frame>odom</odometry_frame>
+
+      <publish_odom>1</publish_odom> 
+      <publish_odom_tf>1</publish_odom_tf> 
+      <publish_wheel_tf>1</publish_wheel_tf> 
+      <publish_distance>1</publish_distance> 
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <jointName>rear_right_wheel_joint, rear_left_wheel_joint, front_right_wheel_joint, front_left_wheel_joint, front_right_steer_joint, front_left_steer_joint, steering_joint</jointName>
+      <updateRate>100.0</updateRate>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="p3d" filename="libgazebo_ros_p3d.so">
+      <bodyName>base_link</bodyName>
+      <topicName>base_pose_ground_truth</topicName>
+      <frameName>map</frameName>
+      <updateRate>100.0</updateRate>
+    </plugin>
+  </gazebo>
+
+  <!-- 여기 아래 수정 -->
+
+  <link name="sonar_1"> <!-- 얘를 변경 -->
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_1_joint" type="fixed"> <!-- 얘를 변경 -->
+    <parent link="chassis"/>
+    <child link="sonar_1"/> <!-- 얘를 변경 --> 
+    <origin xyz="-0.7 -2.1 0.8" rpy="0 0 -1.9"/> <!-- 얘를 변경 -->
+  </joint>
+  
+  <link name="sonar_2">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_2_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_2"/>
+    <origin xyz="-1 -0.9 0.8" rpy="0 0 3.14"/>
+  </joint>
+
+  <link name="sonar_3">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_3_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_3"/>
+    <origin xyz="-1 0 0.8" rpy="0 0 3.14"/>
+  </joint>
+
+  <link name="sonar_4">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_4_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_4"/>
+    <origin xyz="-1.005 1.5 0.8" rpy="0 0 3.14"/>
+  </joint>
+
+  <link name="sonar_5">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_5_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_5"/>
+    <origin xyz="-0.9 2.3 0.8" rpy="0 0 2.19"/>
+  </joint>
+
+  <link name="sonar_6">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_6_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_6"/>
+    <origin xyz="0 2.35 0.8" rpy="0 0 1.57"/>
+  </joint>
+
+  <link name="sonar_7">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_7_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_7"/>
+    <origin xyz="0.9 2.3 0.8" rpy="0 0 0.95"/>
+  </joint>
+
+  <link name="sonar_8">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_8_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_8"/>
+    <origin xyz="1.005 1.5 0.8" rpy="0 0 0"/>
+  </joint>
+
+  <link name="sonar_9">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_9_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_9"/>
+    <origin xyz="1 0 0.8" rpy="0 0 0"/>
+  </joint>
+
+  <link name="sonar_10">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_10_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_10"/>
+    <origin xyz="1 -0.9 0.8" rpy="0 0 0"/>
+  </joint>
+
+  <link name="sonar_11">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_11_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_11"/>
+    <origin xyz="0.7 -2.1 0.8" rpy="0 0 -1.24"/>
+  </joint>
+
+  <link name="sonar_12">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="sonar_12_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="sonar_12"/>
+    <origin xyz="0 -2.3 0.8" rpy="0 0 -1.57"/>
+  </joint>
+  
+
+  <!-- -->
+
+  <gazebo reference="sonar_1">
+    <sensor name='sonar_1' type='ray'>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle> 
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name='sonar_1' filename='libgazebo_ros_ray_sensor.so'>
+        <ros>
+            <namespace>sonar</namespace>
+            <remapping>~/out:=/prius/sonar_1</remapping>
+          </ros>
+          <output_type>sensor_msgs/Range</output_type>
+          <radiation_type>ultrasound</radiation_type>
+          <frame_name>sonar_1</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_2">
+    <sensor name="sonar_2" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_2" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_2</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_2</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_3">
+    <sensor name="sonar_3" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_3" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_3</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_3</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_4">
+    <sensor name="sonar_4" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_4" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_4</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_4</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_5">
+    <sensor name="sonar_5" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_5" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_5</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_5</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_6">
+    <sensor name="sonar_6" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_6" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_6</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_6</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_7">
+    <sensor name="sonar_7" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_7" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_7</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_7</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_8">
+    <sensor name="sonar_8" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_8" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_8</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_8</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_9">
+    <sensor name="sonar_9" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_9" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_9</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_9</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_10">
+    <sensor name="sonar_10" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_10" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_10</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_10</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_11">
+    <sensor name="sonar_11" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_11" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_11</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_11</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="sonar_12">
+    <sensor name="sonar_12" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.261799</min_angle>
+            <max_angle>0.261799</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>4</max>
+          <resolution>0.03</resolution>
+        </range>
+      </ray>
+      <plugin name="sonar_12" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>sonar</namespace>
+          <remapping>~/out:=/prius/sonar_12</remapping>
+        </ros>
+        <output_type>sensor_msgs/Range</output_type>
+        <radiation_type>ultrasound</radiation_type>
+        <frame_name>sonar_12</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>16</update_rate>
+    </sensor>
+  </gazebo>
+
+  <!-- 여기 위에만 수정 -->
+
+</robot>

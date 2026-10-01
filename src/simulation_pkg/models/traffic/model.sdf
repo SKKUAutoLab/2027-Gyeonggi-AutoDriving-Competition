@@ -1,0 +1,189 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+
+  <model name="traffic">
+    <static>true</static>
+
+    <!-- 신호등 본체 -->
+    <link name="traffic_light_body">
+      <visual name="traffic_light_visual">
+        <geometry>
+          <mesh>
+            <uri>model://traffic/meshes/traffic.dae</uri>
+            <scale>0.0029 0.0029 0.0029</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- 빨간 불빛 --> 
+    <link name="red_light_link">
+      <pose>2.535 -0.28 2.538 1.57 0 0</pose> 
+      <light name="red" type="spot"> 
+        <pose>0 -0.12 -0.28 2.469999 0 0</pose>
+        <attenuation>
+          <range>30</range>
+          <linear>0.05</linear>
+        </attenuation>
+        <diffuse>0.5 1 1 1</diffuse> 
+        <specular>1 1 1 1</specular>
+        <spot>
+          <inner_angle>0.3</inner_angle> 
+          <outer_angle>1.35</outer_angle> 
+          <falloff>1</falloff> 
+        </spot>
+        <direction>0 0 -1</direction> 
+      </light>
+      
+      <visual name="red">
+        <geometry> 
+          <cylinder>
+            <radius>0.3</radius>
+            <length>0.1</length>
+          </cylinder>
+          <sphere>
+            <radius>0.4</radius>
+          </sphere>
+        </geometry>
+        <transparency>0.6</transparency>
+        <material>
+          <ambient> 1 0 0 1</ambient>
+          <diffuse> 1 0 0 1</diffuse>
+          <specular>1 1 1 1</specular>
+          <emissive>1 0 0 1</emissive>
+      </material>
+      </visual>
+    </link>
+
+    <!-- 노란 불빛 -->
+    <link name="yellow_light_link"> 
+      <pose>3.26 -0.293 2.538 1.57 0 0</pose> 
+      <light name="yellow" type="spot"> 
+        <pose>0 -0.12 -0.28 2.469999 0 0</pose>
+        <attenuation>
+          <range>30</range>
+          <linear>0.05</linear>
+        </attenuation>
+        <diffuse>0.5 1 1 1</diffuse>
+        <specular>1 1 1 1</specular>
+        <spot>
+          <inner_angle>0.3</inner_angle>
+          <outer_angle>1.35</outer_angle> 
+          <falloff>1</falloff>
+        </spot>
+        <direction>0 0 -1</direction>
+      </light>
+      <visual name="yellow"> 
+        <geometry>
+          <cylinder>
+            <radius>0.30</radius>
+            <length>0.1</length>
+          </cylinder>
+          <sphere>
+            <radius>0.4</radius>
+          </sphere>
+        </geometry>
+        <transparency>0.6</transparency>
+        <material>
+          <ambient>1 1 0 1</ambient>
+          <diffuse>1 1 0 1</diffuse>
+          <specular>1 1 1 1</specular>
+          <emissive>1 1 0 1 </emissive>
+        </material>
+      </visual>
+    </link>
+
+    <!-- 초록 불빛 -->
+    <link name="green_light_link"> 
+      <pose>3.984 -0.28 2.538  1.57 0 0</pose>
+      <light name="green" type="spot"> 
+        <pose>0 -0.12 -0.28 2.469999 0 0</pose>
+        <attenuation>
+          <range>30</range>
+          <linear>0.05</linear>
+        </attenuation>
+        <diffuse>0.5 1 1 1</diffuse>
+        <specular>1 1 1 1</specular>
+        <spot>
+          <inner_angle>0.3</inner_angle>
+          <outer_angle>1.35</outer_angle> 
+          <falloff>1</falloff>
+        </spot>
+        <direction>0 0 -1</direction>
+      </light>
+      
+      <visual name="green"> 
+        <geometry>
+          <cylinder>
+            <radius>0.30</radius>
+            <length>0.1</length>
+          </cylinder>
+          <sphere>
+            <radius>0.4</radius>
+          </sphere>
+        </geometry>
+        <transparency>0.6</transparency>
+        <material>
+          <ambient>0 1 0 1</ambient>
+          <diffuse>0 1 0 1</diffuse>
+          <specular>1 1 1 1</specular>
+          <emissive>0 1 0 1</emissive>
+        </material>
+      </visual>
+    </link>
+    
+  
+    <!-- https://classic.gazebosim.org/tutorials?tut=flashlight_plugin -->
+    <plugin name="red_light_controller" filename="libLedPlugin.so">
+      <enable>true</enable> 
+      <light>
+        <id>red_light_link/red</id>
+        <block>
+          <duration>5</duration> <!-- 빨간불의 지속 시간 5초 -->
+          <interval>0</interval> 
+          <color>1 0 0</color>   <!-- 빨간색 -->
+        </block>
+        <block>
+          <duration>0</duration>
+          <interval>10</interval> <!-- 다음 간격까지 10초 -->
+        </block>
+        <enable>true</enable>
+      </light>
+    </plugin>
+
+    <plugin name="yellow_light_controller" filename="libLedPlugin.so">
+      <enable>true</enable>  
+      <light> 
+        <id>yellow_light_link/yellow</id>
+        <block>
+            <duration>0</duration> 
+            <interval>9</interval> 
+            <color>1 1 0</color>
+        </block>
+        <block>
+            <duration>6</duration>
+            <interval>0</interval> 
+        </block>
+        <enable>true</enable>  
+      </light>
+    </plugin>
+
+    <plugin name="green_light_controller" filename="libLedPlugin.so">
+      <enable>true</enable> 
+      <light> 
+        <id>green_light_link/green</id>
+        <block>
+            <duration>0</duration> 
+            <interval>5</interval>   
+            <color>0 1 0</color>  
+        </block>
+        <block>
+            <duration>10</duration> 
+            <interval>0</interval>   
+        </block>
+        <enable>true</enable>
+      </light>
+    </plugin>
+
+  </model>
+</sdf>

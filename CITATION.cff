@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: "simulation_ws"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+- family-names: "Jinsun"
+  given-names: "Lee"
+  email: 012vision@gmail.com
+  orcid: "https://orcid.org/0009-0008-8484-4433"
+  affiliation: Sungkyunkwan University
+repository-code: https://github.com/Jinsun-Lee/simulation_ws
+license: MIT-License
+commit: d771ae8
+version: 4.0.0
+date-released: '2024-12-06'
